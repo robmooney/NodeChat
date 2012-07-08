@@ -14,12 +14,19 @@
 		E29CC4B815A638B100A29647 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E29CC4B715A638B100A29647 /* main.m */; };
 		E29CC4BC15A638B100A29647 /* RMAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E29CC4BB15A638B100A29647 /* RMAppDelegate.m */; };
 		E29CC4BF15A638B100A29647 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E29CC4BD15A638B100A29647 /* MainStoryboard.storyboard */; };
-		E29CC4C215A638B100A29647 /* RMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E29CC4C115A638B100A29647 /* RMViewController.m */; };
 		E29CC4CA15A638B100A29647 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E29CC4C915A638B100A29647 /* SenTestingKit.framework */; };
 		E29CC4CB15A638B100A29647 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E29CC4AB15A638B100A29647 /* UIKit.framework */; };
 		E29CC4CC15A638B100A29647 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E29CC4AD15A638B100A29647 /* Foundation.framework */; };
 		E29CC4D415A638B100A29647 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E29CC4D215A638B100A29647 /* InfoPlist.strings */; };
 		E29CC4D715A638B100A29647 /* ChatClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E29CC4D615A638B100A29647 /* ChatClientTests.m */; };
+		E29CC4E215A638FF00A29647 /* RMChatClient.m in Sources */ = {isa = PBXBuildFile; fileRef = E29CC4E115A638FF00A29647 /* RMChatClient.m */; };
+		E29CC4E815A7345000A29647 /* RMChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E29CC4E715A7345000A29647 /* RMChatViewController.m */; };
+		E2CC4FF315A865D800EC4F1A /* RMMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E2CC4FF215A865D800EC4F1A /* RMMessageCell.m */; };
+		E2CC4FF715A8848500EC4F1A /* RMMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = E2CC4FF615A8848500EC4F1A /* RMMessage.m */; };
+		E2CC4FFC15A8E16400EC4F1A /* SpeechBubble.png in Resources */ = {isa = PBXBuildFile; fileRef = E2CC4FF815A8E16400EC4F1A /* SpeechBubble.png */; };
+		E2CC4FFD15A8E16400EC4F1A /* SpeechBubble@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E2CC4FF915A8E16400EC4F1A /* SpeechBubble@2x.png */; };
+		E2CC4FFE15A8E16400EC4F1A /* UserSpeechBubble.png in Resources */ = {isa = PBXBuildFile; fileRef = E2CC4FFA15A8E16400EC4F1A /* UserSpeechBubble.png */; };
+		E2CC4FFF15A8E16400EC4F1A /* UserSpeechBubble@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E2CC4FFB15A8E16400EC4F1A /* UserSpeechBubble@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,21 +44,31 @@
 		E29CC4AB15A638B100A29647 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		E29CC4AD15A638B100A29647 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		E29CC4AF15A638B100A29647 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		E29CC4B315A638B100A29647 /* ChatClient-Info.plist */ = {isa = PBXFileReference; path = "ChatClient-Info.plist"; sourceTree = "<group>"; };
+		E29CC4B315A638B100A29647 /* ChatClient-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ChatClient-Info.plist"; sourceTree = "<group>"; };
 		E29CC4B515A638B100A29647 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E29CC4B715A638B100A29647 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		E29CC4B915A638B100A29647 /* ChatClient-Prefix.pch */ = {isa = PBXFileReference; path = "ChatClient-Prefix.pch"; sourceTree = "<group>"; };
-		E29CC4BA15A638B100A29647 /* RMAppDelegate.h */ = {isa = PBXFileReference; path = RMAppDelegate.h; sourceTree = "<group>"; };
+		E29CC4B915A638B100A29647 /* ChatClient-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ChatClient-Prefix.pch"; sourceTree = "<group>"; };
+		E29CC4BA15A638B100A29647 /* RMAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RMAppDelegate.h; sourceTree = "<group>"; };
 		E29CC4BB15A638B100A29647 /* RMAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RMAppDelegate.m; sourceTree = "<group>"; };
 		E29CC4BE15A638B100A29647 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
-		E29CC4C015A638B100A29647 /* RMViewController.h */ = {isa = PBXFileReference; path = RMViewController.h; sourceTree = "<group>"; };
-		E29CC4C115A638B100A29647 /* RMViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RMViewController.m; sourceTree = "<group>"; };
 		E29CC4C815A638B100A29647 /* ChatClientTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChatClientTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E29CC4C915A638B100A29647 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		E29CC4D115A638B100A29647 /* ChatClientTests-Info.plist */ = {isa = PBXFileReference; path = "ChatClientTests-Info.plist"; sourceTree = "<group>"; };
+		E29CC4D115A638B100A29647 /* ChatClientTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ChatClientTests-Info.plist"; sourceTree = "<group>"; };
 		E29CC4D315A638B100A29647 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		E29CC4D515A638B100A29647 /* ChatClientTests.h */ = {isa = PBXFileReference; path = ChatClientTests.h; sourceTree = "<group>"; };
+		E29CC4D515A638B100A29647 /* ChatClientTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChatClientTests.h; sourceTree = "<group>"; };
 		E29CC4D615A638B100A29647 /* ChatClientTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChatClientTests.m; sourceTree = "<group>"; };
+		E29CC4E015A638FF00A29647 /* RMChatClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMChatClient.h; sourceTree = "<group>"; };
+		E29CC4E115A638FF00A29647 /* RMChatClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMChatClient.m; sourceTree = "<group>"; };
+		E29CC4E615A7345000A29647 /* RMChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMChatViewController.h; sourceTree = "<group>"; };
+		E29CC4E715A7345000A29647 /* RMChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMChatViewController.m; sourceTree = "<group>"; };
+		E2CC4FF115A865D800EC4F1A /* RMMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMMessageCell.h; sourceTree = "<group>"; };
+		E2CC4FF215A865D800EC4F1A /* RMMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMMessageCell.m; sourceTree = "<group>"; };
+		E2CC4FF515A8848500EC4F1A /* RMMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMMessage.h; sourceTree = "<group>"; };
+		E2CC4FF615A8848500EC4F1A /* RMMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMMessage.m; sourceTree = "<group>"; };
+		E2CC4FF815A8E16400EC4F1A /* SpeechBubble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SpeechBubble.png; sourceTree = "<group>"; };
+		E2CC4FF915A8E16400EC4F1A /* SpeechBubble@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SpeechBubble@2x.png"; sourceTree = "<group>"; };
+		E2CC4FFA15A8E16400EC4F1A /* UserSpeechBubble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UserSpeechBubble.png; sourceTree = "<group>"; };
+		E2CC4FFB15A8E16400EC4F1A /* UserSpeechBubble@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UserSpeechBubble@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,12 +128,22 @@
 		E29CC4B115A638B100A29647 /* ChatClient */ = {
 			isa = PBXGroup;
 			children = (
+				E2CC4FF815A8E16400EC4F1A /* SpeechBubble.png */,
+				E2CC4FF915A8E16400EC4F1A /* SpeechBubble@2x.png */,
+				E2CC4FFA15A8E16400EC4F1A /* UserSpeechBubble.png */,
+				E2CC4FFB15A8E16400EC4F1A /* UserSpeechBubble@2x.png */,
 				E29CC4BA15A638B100A29647 /* RMAppDelegate.h */,
 				E29CC4BB15A638B100A29647 /* RMAppDelegate.m */,
 				E29CC4BD15A638B100A29647 /* MainStoryboard.storyboard */,
-				E29CC4C015A638B100A29647 /* RMViewController.h */,
-				E29CC4C115A638B100A29647 /* RMViewController.m */,
 				E29CC4B215A638B100A29647 /* Supporting Files */,
+				E29CC4E015A638FF00A29647 /* RMChatClient.h */,
+				E29CC4E115A638FF00A29647 /* RMChatClient.m */,
+				E29CC4E615A7345000A29647 /* RMChatViewController.h */,
+				E29CC4E715A7345000A29647 /* RMChatViewController.m */,
+				E2CC4FF115A865D800EC4F1A /* RMMessageCell.h */,
+				E2CC4FF215A865D800EC4F1A /* RMMessageCell.m */,
+				E2CC4FF515A8848500EC4F1A /* RMMessage.h */,
+				E2CC4FF615A8848500EC4F1A /* RMMessage.m */,
 			);
 			path = ChatClient;
 			sourceTree = "<group>";
@@ -225,6 +252,10 @@
 			files = (
 				E29CC4B615A638B100A29647 /* InfoPlist.strings in Resources */,
 				E29CC4BF15A638B100A29647 /* MainStoryboard.storyboard in Resources */,
+				E2CC4FFC15A8E16400EC4F1A /* SpeechBubble.png in Resources */,
+				E2CC4FFD15A8E16400EC4F1A /* SpeechBubble@2x.png in Resources */,
+				E2CC4FFE15A8E16400EC4F1A /* UserSpeechBubble.png in Resources */,
+				E2CC4FFF15A8E16400EC4F1A /* UserSpeechBubble@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,7 +292,10 @@
 			files = (
 				E29CC4B815A638B100A29647 /* main.m in Sources */,
 				E29CC4BC15A638B100A29647 /* RMAppDelegate.m in Sources */,
-				E29CC4C215A638B100A29647 /* RMViewController.m in Sources */,
+				E29CC4E215A638FF00A29647 /* RMChatClient.m in Sources */,
+				E29CC4E815A7345000A29647 /* RMChatViewController.m in Sources */,
+				E2CC4FF315A865D800EC4F1A /* RMMessageCell.m in Sources */,
+				E2CC4FF715A8848500EC4F1A /* RMMessage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -431,6 +465,7 @@
 				E29CC4DC15A638B100A29647 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E29CC4DD15A638B100A29647 /* Build configuration list for PBXNativeTarget "ChatClientTests" */ = {
 			isa = XCConfigurationList;
@@ -439,6 +474,7 @@
 				E29CC4DF15A638B100A29647 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
