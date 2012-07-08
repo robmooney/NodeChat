@@ -16,7 +16,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <tableView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="88" sectionHeaderHeight="22" sectionFooterHeight="22" id="gpE-ff-8A8">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
+                                <rect key="frame" x="0.0" y="44" width="320" height="372"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
@@ -28,7 +28,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="UserSpeechBubble.png" id="ol7-mM-cTD">
-                                                    <rect key="frame" x="8" y="33" width="300" height="54"/>
+                                                    <rect key="frame" x="175" y="33" width="133" height="54"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <rect key="contentStretch" x="0.5" y="0.5" width="0.02" height="0.02"/>
                                                 </imageView>
@@ -42,7 +42,7 @@
                                                     <size key="shadowOffset" width="0.0" height="1"/>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Message text" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" id="a6F-MD-sGk">
-                                                    <rect key="frame" x="23" y="52" width="103" height="22"/>
+                                                    <rect key="frame" x="190" y="52" width="103" height="22"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -54,6 +54,7 @@
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <connections>
+                                            <outlet property="bubbleImageView" destination="ol7-mM-cTD" id="bv0-dw-Dyk"/>
                                             <outlet property="messageLabel" destination="a6F-MD-sGk" id="XDp-zD-aY3"/>
                                             <outlet property="usernameLabel" destination="4GF-2H-0xB" id="bp9-rz-VVF"/>
                                         </connections>
@@ -66,12 +67,12 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="SpeechBubble.png" id="u7F-J7-cgy">
-                                                    <rect key="frame" x="10" y="33" width="300" height="54"/>
+                                                    <rect key="frame" x="10" y="33" width="133" height="54"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <rect key="contentStretch" x="0.5" y="0.5" width="0.02" height="0.02"/>
                                                 </imageView>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Message text" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" id="dEk-3s-zay">
-                                                    <rect key="frame" x="23" y="52" width="103" height="22"/>
+                                                    <rect key="frame" x="25" y="52" width="103" height="22"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -91,6 +92,7 @@
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <connections>
+                                            <outlet property="bubbleImageView" destination="u7F-J7-cgy" id="m6c-qv-X9S"/>
                                             <outlet property="messageLabel" destination="dEk-3s-zay" id="PdU-uA-zwf"/>
                                             <outlet property="usernameLabel" destination="hsH-hh-VkF" id="8H7-MK-7TX"/>
                                         </connections>
@@ -133,10 +135,13 @@
                                             <rect key="frame" x="12" y="7" width="235" height="31"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="send" enablesReturnKeyAutomatically="YES"/>
+                                            <connections>
+                                                <outlet property="delegate" destination="FRa-oF-8cN" id="VGC-oJ-lVe"/>
+                                            </connections>
                                         </textField>
                                     </barButtonItem>
-                                    <barButtonItem title="Send" id="gtU-8P-FQl">
+                                    <barButtonItem enabled="NO" title="Send" id="gtU-8P-FQl">
                                         <color key="tintColor" red="0.5490196078431373" green="0.78431372549019607" blue="0.29411764705882354" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <action selector="sendMessage:" destination="FRa-oF-8cN" id="a4h-Iw-M4N"/>
@@ -145,11 +150,20 @@
                                 </items>
                                 <color key="tintColor" red="0.27450980392156865" green="0.28235294117647058" blue="0.24313725490196078" alpha="1" colorSpace="calibratedRGB"/>
                             </toolbar>
+                            <navigationBar contentMode="scaleToFill" id="uao-KD-MyQ">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" red="0.27450980392156865" green="0.28235294117647058" blue="0.24313725490196078" alpha="1" colorSpace="calibratedRGB"/>
+                                <items>
+                                    <navigationItem title="Node Chat" id="WJq-aO-IUi"/>
+                                </items>
+                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
                         <outlet property="messageField" destination="J4g-do-yQp" id="cXb-TR-aVV"/>
+                        <outlet property="sendButton" destination="gtU-8P-FQl" id="5VL-tb-I8F"/>
                         <outlet property="tableView" destination="gpE-ff-8A8" id="Bw4-Vo-0B1"/>
                         <outlet property="toolbar" destination="ObM-u2-lHs" id="8x5-hg-Giu"/>
                     </connections>
@@ -162,6 +176,27 @@
         <image name="SpeechBubble.png" width="44" height="54"/>
         <image name="UserSpeechBubble.png" width="44" height="54"/>
     </resources>
+    <classes>
+        <class className="RMChatViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/RMChatViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="hideKeyboard:"/>
+                <relationship kind="action" name="sendMessage:"/>
+                <relationship kind="outlet" name="messageField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="sendButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
+            </relationships>
+        </class>
+        <class className="RMMessageCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/RMMessageCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="bubbleImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="messageLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="usernameLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

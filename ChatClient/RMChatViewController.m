@@ -11,20 +11,29 @@
 #import "RMMessageCell.h"
 #import "RMMessage.h"
 
-@interface RMChatViewController () <RMChatClientDelegate, UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
+
+#pragma mark Private interface
+
+@interface RMChatViewController () <RMChatClientDelegate, UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate, UITextFieldDelegate>
 
 @property (strong, nonatomic) RMChatClient *chatClient;
 @property (strong, nonatomic) NSMutableArray *messages;
 
 - (void)showJoinDialog;
+- (void)scrollMessagesToEnd;
+- (CGSize)messageLabelSizeForText:(NSString *)text;
+- (void)sendMessageAndUpdateUI;
 
 @end
+
+#pragma mark - Implementation
 
 @implementation RMChatViewController
 
 @synthesize tableView = _tableView;
 @synthesize messageField = _messageField;
 @synthesize toolbar = _toolbar;
+@synthesize sendButton = _sendButton;
 
 @synthesize chatClient = _chatClient;
 @synthesize messages = _messages;
@@ -74,6 +83,26 @@
     [alertView show];    
 }
 
+- (void)scrollMessagesToEnd
+{
+    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:([self.messages count] - 1) inSection:0] 
+                          atScrollPosition:UITableViewScrollPositionBottom 
+                                  animated:YES];
+}
+
+
+- (CGSize)messageLabelSizeForText:(NSString *)text
+{
+    return [text sizeWithFont:[UIFont systemFontOfSize:17.0f] constrainedToSize:CGSizeMake(200.0f, CGFLOAT_MAX)];
+}
+
+- (void)sendMessageAndUpdateUI
+{
+    [self.chatClient sendText:self.messageField.text];
+    self.messageField.text = @"";
+    self.sendButton.enabled = NO;
+}
+
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillChangeFrameNotification object:nil];
@@ -83,8 +112,7 @@
 
 - (IBAction)sendMessage:(id)sender
 {
-    [self.chatClient sendText:self.messageField.text];
-    self.messageField.text = @"";
+    [self sendMessageAndUpdateUI];
 }
 
 - (IBAction)hideKeyboard:(id)sender
@@ -104,28 +132,29 @@
 {
     RMMessageCell *cell;    
     RMMessage *message = [self.messages objectAtIndex:indexPath.row]; 
+    CGSize textSize;
     
     switch (message.type) {
         case RMMessageTypeSystem:
             cell = [self.tableView dequeueReusableCellWithIdentifier:@"SystemMessageCell"];
+            cell.messageLabel.frame = CGRectMake(20.0f, 11.0f, 280.0f, 21.0f);
             break;
         case RMMessageTypeUser:
-            cell = [self.tableView dequeueReusableCellWithIdentifier:@"UserMessageCell"];
+            cell = [self.tableView dequeueReusableCellWithIdentifier:@"UserMessageCell"];            
+            textSize = [self messageLabelSizeForText:message.text];
+            cell.messageLabel.frame = CGRectMake(295.0f - textSize.width, 52.0f, textSize.width, textSize.height);
+            cell.bubbleImageView.frame = CGRectMake(280.0f - textSize.width, 33.0f, textSize.width + 30.0f, textSize.height + 32.0f);
             break;
         case RMMessageTypeNormal:
             cell = [self.tableView dequeueReusableCellWithIdentifier:@"MessageCell"];
+            textSize = [self messageLabelSizeForText:message.text];
+            cell.messageLabel.frame = CGRectMake(25.0f, 52.0f, textSize.width, textSize.height);
+            cell.bubbleImageView.frame = CGRectMake(10.0f, 33.0f, textSize.width + 30.0f, textSize.height + 32.0f);
             break;
     }
     
     cell.usernameLabel.text = message.username;
     cell.messageLabel.text = message.text;
-    
-    if (message.type == RMMessageTypeSystem) {    
-        cell.messageLabel.frame = CGRectMake(20.0f, 11.0f, 280.0f, 21.0f);
-    } else {    
-        CGSize textSize = [message.text sizeWithFont:[UIFont systemFontOfSize:15.0f] constrainedToSize:CGSizeMake(280.0f, CGFLOAT_MAX)];
-        cell.messageLabel.frame = CGRectMake(20.0f, 52.0f, 280.0f, textSize.height);
-    }
     
     return cell;    
 }
@@ -141,7 +170,7 @@
             return 44.0f;
         case RMMessageTypeUser:
         case RMMessageTypeNormal: {
-            CGSize textSize = [message.text sizeWithFont:[UIFont systemFontOfSize:15.0f] constrainedToSize:CGSizeMake(280.0f, CGFLOAT_MAX)];
+            CGSize textSize = [self messageLabelSizeForText:message.text];
             return 52.0f + textSize.height + 20.0f;
         }
     }
@@ -157,9 +186,29 @@
         self.chatClient = [[RMChatClient alloc] initWithUsername:username];
         self.chatClient.delegate = self;        
         [self.chatClient connect];
+        
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.25 * NSEC_PER_SEC);
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            [self.messageField becomeFirstResponder];
+        });
+        
     } else {
         [self showJoinDialog];
     }   
+}
+
+#pragma mark - Text field delegate
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    // empty string + range.location == 0 denotes first character being deleted, disable send, otherwise enable
+    self.sendButton.enabled = ([string length] + range.location) ? YES : NO;
+    return YES;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [self sendMessageAndUpdateUI];
+    return NO;
 }
 
 #pragma mark - Chat client delegate
@@ -195,7 +244,7 @@
     NSIndexPath *messageIndexPath = [NSIndexPath indexPathForRow:([self.messages count] - 1) inSection:0];
     [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:messageIndexPath] 
                           withRowAnimation:rowAnimation];
-    [self.tableView scrollToRowAtIndexPath:messageIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    [self scrollMessagesToEnd];
 }
 
 - (void)chatClient:(RMChatClient *)chatClient didReceiveError:(NSError *)error
@@ -228,7 +277,7 @@
             self.tableView.frame = UIEdgeInsetsInsetRect(self.tableView.frame, UIEdgeInsetsMake(0.0f, 0.0f, keyboardFrame.size.height, 0.0));
             self.toolbar.frame = CGRectOffset(self.toolbar.frame, 0.0f, -keyboardFrame.size.height);
         } completion:^ (BOOL finished) {
-            [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:([self.messages count] - 1) inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];            
+            [self scrollMessagesToEnd];            
         }];  
     }
 }
