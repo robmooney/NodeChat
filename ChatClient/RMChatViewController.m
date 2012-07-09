@@ -243,14 +243,19 @@
     if (textField == self.messageField) {        
         [self sendMessageAndUpdateUI];
     } else {
+        NSString *username = [self.joinDialog textFieldAtIndex:0].text;  
         [self.joinDialog dismissWithClickedButtonIndex:0 animated:YES];
-        NSString *username = [self.joinDialog textFieldAtIndex:0].text; 
-        [self joinChatWithUsername:username];
-        
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.25 * NSEC_PER_SEC);
-        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-            [self.messageField becomeFirstResponder];
-        });
+         
+         if ([username length] && [username rangeOfString:@":"].location == NSNotFound) {
+             [self joinChatWithUsername:username];
+             
+             dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.25 * NSEC_PER_SEC);
+             dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                 [self.messageField becomeFirstResponder];
+             });
+         } else {
+             [self showJoinDialog];
+         }   
     }
     return NO;
 }
