@@ -24,7 +24,7 @@
 - (void)showJoinDialog;
 - (void)scrollMessagesToEnd;
 - (CGSize)messageLabelSizeForText:(NSString *)text;
-- (void)joinChatWithUsername:(NSString *)username;
+- (void)attemptToJoinChatWithUsername:(NSString *)username;
 - (void)sendMessageAndUpdateUI;
 
 @end
@@ -107,12 +107,23 @@
     return [text sizeWithFont:[UIFont systemFontOfSize:17.0f] constrainedToSize:CGSizeMake(200.0f, CGFLOAT_MAX)];
 }
 
-
-- (void)joinChatWithUsername:(NSString *)username
+- (void)attemptToJoinChatWithUsername:(NSString *)username
 {
-    self.chatClient = [[RMChatClient alloc] initWithUsername:username];
-    self.chatClient.delegate = self;        
-    [self.chatClient connect];
+    [self.joinDialog dismissWithClickedButtonIndex:0 animated:YES];
+    
+    if ([username length] && [username rangeOfString:@":"].location == NSNotFound) {
+        
+        self.chatClient = [[RMChatClient alloc] initWithUsername:username];
+        self.chatClient.delegate = self;        
+        [self.chatClient connect]; 
+        
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.25 * NSEC_PER_SEC);
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            [self.messageField becomeFirstResponder];
+        });
+    } else {
+        [self showJoinDialog];
+    }   
 }
 
 - (void)sendMessageAndUpdateUI
@@ -213,19 +224,7 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    NSString *username = [alertView textFieldAtIndex:0].text;  
-    
-    if ([username length] && [username rangeOfString:@":"].location == NSNotFound) {
-        [self joinChatWithUsername:username];
-        
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.25 * NSEC_PER_SEC);
-        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-            [self.messageField becomeFirstResponder];
-        });
-        
-    } else {
-        [self showJoinDialog];
-    }   
+    [self attemptToJoinChatWithUsername:[alertView textFieldAtIndex:0].text];
 }
 
 #pragma mark - Text field delegate
@@ -242,20 +241,8 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     if (textField == self.messageField) {        
         [self sendMessageAndUpdateUI];
-    } else {
-        NSString *username = [self.joinDialog textFieldAtIndex:0].text;  
-        [self.joinDialog dismissWithClickedButtonIndex:0 animated:YES];
-         
-         if ([username length] && [username rangeOfString:@":"].location == NSNotFound) {
-             [self joinChatWithUsername:username];
-             
-             dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.25 * NSEC_PER_SEC);
-             dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-                 [self.messageField becomeFirstResponder];
-             });
-         } else {
-             [self showJoinDialog];
-         }   
+    } else {        
+        [self attemptToJoinChatWithUsername:[self.joinDialog textFieldAtIndex:0].text];
     }
     return NO;
 }
