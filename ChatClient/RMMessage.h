@@ -19,6 +19,7 @@ typedef enum {
 @property (strong, nonatomic) NSString *username;
 @property (strong, nonatomic) NSString *text;
 @property (assign, nonatomic) RMMessageType type;
+@property (assign, nonatomic, getter = isFollowOn) BOOL followOn;
 
 - (id)initWithString:(NSString *)string;
 

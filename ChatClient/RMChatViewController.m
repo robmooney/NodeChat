@@ -18,10 +18,13 @@
 
 @property (strong, nonatomic) RMChatClient *chatClient;
 @property (strong, nonatomic) NSMutableArray *messages;
+@property (strong, nonatomic) RMMessage *previousMessage;
+@property (strong, nonatomic) UIAlertView *joinDialog;
 
 - (void)showJoinDialog;
 - (void)scrollMessagesToEnd;
 - (CGSize)messageLabelSizeForText:(NSString *)text;
+- (void)joinChatWithUsername:(NSString *)username;
 - (void)sendMessageAndUpdateUI;
 
 @end
@@ -37,6 +40,8 @@
 
 @synthesize chatClient = _chatClient;
 @synthesize messages = _messages;
+@synthesize previousMessage = _previousMessage;
+@synthesize joinDialog = _joinDialog;
 
 - (void)viewDidLoad
 {
@@ -73,27 +78,41 @@
 
 - (void)showJoinDialog
 {   
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Welcome to Node Chat!" 
+    self.joinDialog = [[UIAlertView alloc] initWithTitle:@"Welcome to Node Chat!" 
                                                         message:@"Enter your nickname" 
                                                        delegate:self 
                                               cancelButtonTitle:nil 
                                               otherButtonTitles:@"Join", nil];
-    alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
-    [alertView textFieldAtIndex:0].autocapitalizationType = UITextAutocapitalizationTypeWords;
-    [alertView show];    
+    self.joinDialog.alertViewStyle = UIAlertViewStylePlainTextInput;
+    UITextField *textField = [self.joinDialog textFieldAtIndex:0];
+    textField.autocapitalizationType = UITextAutocapitalizationTypeWords;
+    textField.autocorrectionType = UITextAutocorrectionTypeDefault;
+    textField.returnKeyType = UIReturnKeyJoin;
+    textField.delegate = self;
+    [self.joinDialog show];
 }
 
 - (void)scrollMessagesToEnd
 {
-    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:([self.messages count] - 1) inSection:0] 
-                          atScrollPosition:UITableViewScrollPositionBottom 
-                                  animated:YES];
+    if ([self.messages count]) {        
+        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:([self.messages count] - 1) inSection:0] 
+                              atScrollPosition:UITableViewScrollPositionBottom 
+                                      animated:YES];
+    }
 }
 
 
 - (CGSize)messageLabelSizeForText:(NSString *)text
 {
     return [text sizeWithFont:[UIFont systemFontOfSize:17.0f] constrainedToSize:CGSizeMake(200.0f, CGFLOAT_MAX)];
+}
+
+
+- (void)joinChatWithUsername:(NSString *)username
+{
+    self.chatClient = [[RMChatClient alloc] initWithUsername:username];
+    self.chatClient.delegate = self;        
+    [self.chatClient connect];
 }
 
 - (void)sendMessageAndUpdateUI
@@ -132,6 +151,12 @@
 {
     RMMessageCell *cell;    
     RMMessage *message = [self.messages objectAtIndex:indexPath.row]; 
+    CGFloat offset = 0.0f;
+    
+    if (message.isFollowOn) {
+        offset = -33.0f;
+    }
+    
     CGSize textSize;
     
     switch (message.type) {
@@ -142,19 +167,21 @@
         case RMMessageTypeUser:
             cell = [self.tableView dequeueReusableCellWithIdentifier:@"UserMessageCell"];            
             textSize = [self messageLabelSizeForText:message.text];
-            cell.messageLabel.frame = CGRectMake(295.0f - textSize.width, 52.0f, textSize.width, textSize.height);
-            cell.bubbleImageView.frame = CGRectMake(280.0f - textSize.width, 33.0f, textSize.width + 30.0f, textSize.height + 32.0f);
+            cell.messageLabel.frame = CGRectMake(295.0f - textSize.width, 52.0f + offset, textSize.width, textSize.height);
+            cell.bubbleImageView.frame = CGRectMake(280.0f - textSize.width, 33.0f + offset, textSize.width + 30.0f, textSize.height + 32.0f);
             break;
         case RMMessageTypeNormal:
             cell = [self.tableView dequeueReusableCellWithIdentifier:@"MessageCell"];
             textSize = [self messageLabelSizeForText:message.text];
-            cell.messageLabel.frame = CGRectMake(25.0f, 52.0f, textSize.width, textSize.height);
-            cell.bubbleImageView.frame = CGRectMake(10.0f, 33.0f, textSize.width + 30.0f, textSize.height + 32.0f);
+            cell.messageLabel.frame = CGRectMake(25.0f, 52.0f + offset, textSize.width, textSize.height);
+            cell.bubbleImageView.frame = CGRectMake(10.0f, 33.0f + offset, textSize.width + 30.0f, textSize.height + 32.0f);
             break;
     }
     
     cell.usernameLabel.text = message.username;
     cell.messageLabel.text = message.text;
+    
+    cell.usernameLabel.hidden = message.isFollowOn;
     
     return cell;    
 }
@@ -165,13 +192,19 @@
 {
     RMMessage *message = [self.messages objectAtIndex:indexPath.row];
     
+    CGFloat offset = 0.0f;
+    
+    if (message.isFollowOn) {
+        offset = -33.0f;
+    }
+    
     switch (message.type) {
         case RMMessageTypeSystem:
             return 44.0f;
         case RMMessageTypeUser:
         case RMMessageTypeNormal: {
             CGSize textSize = [self messageLabelSizeForText:message.text];
-            return 52.0f + textSize.height + 20.0f;
+            return 52.0f + offset + textSize.height + 20.0f;
         }
     }
 }
@@ -183,9 +216,7 @@
     NSString *username = [alertView textFieldAtIndex:0].text;  
     
     if ([username length] && [username rangeOfString:@":"].location == NSNotFound) {
-        self.chatClient = [[RMChatClient alloc] initWithUsername:username];
-        self.chatClient.delegate = self;        
-        [self.chatClient connect];
+        [self joinChatWithUsername:username];
         
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.25 * NSEC_PER_SEC);
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
@@ -200,14 +231,27 @@
 #pragma mark - Text field delegate
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
-{
-    // empty string + range.location == 0 denotes first character being deleted, disable send, otherwise enable
-    self.sendButton.enabled = ([string length] + range.location) ? YES : NO;
+{    
+    if (textField == self.messageField) {  
+        // empty string + range.location == 0 denotes first character being deleted, disable send, otherwise enable
+        self.sendButton.enabled = ([string length] + range.location) ? YES : NO;
+    }
     return YES;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    [self sendMessageAndUpdateUI];
+    if (textField == self.messageField) {        
+        [self sendMessageAndUpdateUI];
+    } else {
+        [self.joinDialog dismissWithClickedButtonIndex:0 animated:YES];
+        NSString *username = [self.joinDialog textFieldAtIndex:0].text; 
+        [self joinChatWithUsername:username];
+        
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.25 * NSEC_PER_SEC);
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            [self.messageField becomeFirstResponder];
+        });
+    }
     return NO;
 }
 
@@ -225,7 +269,15 @@
 
 - (void)chatClient:(RMChatClient *)chatClient didReceiveMessage:(RMMessage *)message
 {
+    if (self.previousMessage) {
+        if ([self.previousMessage.username isEqualToString:message.username]) {
+            message.followOn = YES;
+        }
+    }    
+    
     [self.messages addObject:message];
+    
+    self.previousMessage = message;
     
     UITableViewRowAnimation rowAnimation;
     

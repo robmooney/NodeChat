@@ -13,6 +13,7 @@
 @synthesize username = _username;
 @synthesize text = _text;
 @synthesize type = _type;
+@synthesize followOn = _followOn;
 
 - (id)initWithString:(NSString *)string
 {
@@ -27,6 +28,21 @@
         }
     }
     return self;
+}
+
+- (NSString *)description
+{
+    NSString *username;
+    
+    if (self.isFollowOn) {
+        username = @">";
+    } else if (_type == RMMessageTypeSystem) {
+        username = @"[system]";
+    } else {
+        username = [NSString stringWithFormat:@"[%@]", _username];
+    }
+    
+    return [NSString stringWithFormat:@"%@ %@", username, _text];
 }
 
 @end
