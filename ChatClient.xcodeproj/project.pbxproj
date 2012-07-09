@@ -27,6 +27,10 @@
 		E2CC4FFD15A8E16400EC4F1A /* SpeechBubble@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E2CC4FF915A8E16400EC4F1A /* SpeechBubble@2x.png */; };
 		E2CC4FFE15A8E16400EC4F1A /* UserSpeechBubble.png in Resources */ = {isa = PBXBuildFile; fileRef = E2CC4FFA15A8E16400EC4F1A /* UserSpeechBubble.png */; };
 		E2CC4FFF15A8E16400EC4F1A /* UserSpeechBubble@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E2CC4FFB15A8E16400EC4F1A /* UserSpeechBubble@2x.png */; };
+		E2CC500115AAF83000EC4F1A /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = E2CC500015AAF83000EC4F1A /* Icon.png */; };
+		E2CC500315AAF83500EC4F1A /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E2CC500215AAF83500EC4F1A /* Icon@2x.png */; };
+		E2CC500515AAF98B00EC4F1A /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = E2CC500415AAF98B00EC4F1A /* Default.png */; };
+		E2CC500715AAF99100EC4F1A /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E2CC500615AAF99100EC4F1A /* Default@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,7 +44,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		E29CC4A715A638B100A29647 /* ChatClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChatClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E29CC4A715A638B100A29647 /* Node Chat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Node Chat.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E29CC4AB15A638B100A29647 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		E29CC4AD15A638B100A29647 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		E29CC4AF15A638B100A29647 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -69,6 +73,10 @@
 		E2CC4FF915A8E16400EC4F1A /* SpeechBubble@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SpeechBubble@2x.png"; sourceTree = "<group>"; };
 		E2CC4FFA15A8E16400EC4F1A /* UserSpeechBubble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UserSpeechBubble.png; sourceTree = "<group>"; };
 		E2CC4FFB15A8E16400EC4F1A /* UserSpeechBubble@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "UserSpeechBubble@2x.png"; sourceTree = "<group>"; };
+		E2CC500015AAF83000EC4F1A /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		E2CC500215AAF83500EC4F1A /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		E2CC500415AAF98B00EC4F1A /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		E2CC500615AAF99100EC4F1A /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +106,10 @@
 		E29CC49C15A638B100A29647 = {
 			isa = PBXGroup;
 			children = (
+				E2CC500615AAF99100EC4F1A /* Default@2x.png */,
+				E2CC500415AAF98B00EC4F1A /* Default.png */,
+				E2CC500215AAF83500EC4F1A /* Icon@2x.png */,
+				E2CC500015AAF83000EC4F1A /* Icon.png */,
 				E29CC4B115A638B100A29647 /* ChatClient */,
 				E29CC4CF15A638B100A29647 /* ChatClientTests */,
 				E29CC4AA15A638B100A29647 /* Frameworks */,
@@ -108,7 +120,7 @@
 		E29CC4A815A638B100A29647 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E29CC4A715A638B100A29647 /* ChatClient.app */,
+				E29CC4A715A638B100A29647 /* Node Chat.app */,
 				E29CC4C815A638B100A29647 /* ChatClientTests.octest */,
 			);
 			name = Products;
@@ -181,9 +193,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		E29CC4A615A638B100A29647 /* ChatClient */ = {
+		E29CC4A615A638B100A29647 /* Node Chat */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E29CC4DA15A638B100A29647 /* Build configuration list for PBXNativeTarget "ChatClient" */;
+			buildConfigurationList = E29CC4DA15A638B100A29647 /* Build configuration list for PBXNativeTarget "Node Chat" */;
 			buildPhases = (
 				E29CC4A315A638B100A29647 /* Sources */,
 				E29CC4A415A638B100A29647 /* Frameworks */,
@@ -193,9 +205,9 @@
 			);
 			dependencies = (
 			);
-			name = ChatClient;
+			name = "Node Chat";
 			productName = ChatClient;
-			productReference = E29CC4A715A638B100A29647 /* ChatClient.app */;
+			productReference = E29CC4A715A638B100A29647 /* Node Chat.app */;
 			productType = "com.apple.product-type.application";
 		};
 		E29CC4C715A638B100A29647 /* ChatClientTests */ = {
@@ -239,7 +251,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				E29CC4A615A638B100A29647 /* ChatClient */,
+				E29CC4A615A638B100A29647 /* Node Chat */,
 				E29CC4C715A638B100A29647 /* ChatClientTests */,
 			);
 		};
@@ -256,6 +268,10 @@
 				E2CC4FFD15A8E16400EC4F1A /* SpeechBubble@2x.png in Resources */,
 				E2CC4FFE15A8E16400EC4F1A /* UserSpeechBubble.png in Resources */,
 				E2CC4FFF15A8E16400EC4F1A /* UserSpeechBubble@2x.png in Resources */,
+				E2CC500115AAF83000EC4F1A /* Icon.png in Resources */,
+				E2CC500315AAF83500EC4F1A /* Icon@2x.png in Resources */,
+				E2CC500515AAF98B00EC4F1A /* Default.png in Resources */,
+				E2CC500715AAF99100EC4F1A /* Default@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -312,7 +328,7 @@
 /* Begin PBXTargetDependency section */
 		E29CC4CE15A638B100A29647 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = E29CC4A615A638B100A29647 /* ChatClient */;
+			target = E29CC4A615A638B100A29647 /* Node Chat */;
 			targetProxy = E29CC4CD15A638B100A29647 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -458,7 +474,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E29CC4DA15A638B100A29647 /* Build configuration list for PBXNativeTarget "ChatClient" */ = {
+		E29CC4DA15A638B100A29647 /* Build configuration list for PBXNativeTarget "Node Chat" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E29CC4DB15A638B100A29647 /* Debug */,
