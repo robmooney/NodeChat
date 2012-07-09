@@ -9,7 +9,7 @@
 #import "RMChatClient.h"
 #import "RMMessage.h"
 
-#define SERVER_HOST "Robs-iMac.local"
+#define SERVER_HOST "Robs-MacBook-Air.local"
 
 @interface RMChatClient () <NSStreamDelegate>
 
