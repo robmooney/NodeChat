@@ -9,7 +9,8 @@
 #import "RMChatClient.h"
 #import "RMMessage.h"
 
-#define SERVER_HOST "Robs-MacBook-Air.local"
+#warning You'll need to change this to your mac's network address to get it working with iOS devices
+#define SERVER_HOST "localhost"
 
 @interface RMChatClient () <NSStreamDelegate>
 
